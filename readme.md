@@ -181,6 +181,3 @@ pgg version
 
 Copyright © 2026
 LeonibelDev [leonibel.ramirez@gmail.com](mailto:leonibel.ramirez@gmail.com)
-
-```
-```

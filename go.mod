@@ -1,4 +1,4 @@
-module github.com/leonibeldev/pgg
+module github.com/leonibeldev/pgg-cli
 
 go 1.24
 

@@ -1,9 +1,11 @@
 /*
-Copyright © 2026 NAME HERE <EMAIL ADDRESS>
+Copyright © 2026 leonibeldev <leonibel.ramirez@gmail.com>
 */
 package main
 
-import "github.com/leonibeldev/pgg/cmd"
+import (
+	"github.com/leonibeldev/pgg-cli/cmd"
+)
 
 func main() {
 	cmd.Execute()

@@ -7,9 +7,9 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/leonibeldev/pgg/src/crypt"
-	"github.com/leonibeldev/pgg/src/flags"
-	"github.com/leonibeldev/pgg/src/utils"
+	"github.com/leonibeldev/pgg-cli/internal/crypt"
+	"github.com/leonibeldev/pgg-cli/internal/flags"
+	"github.com/leonibeldev/pgg-cli/internal/utils"
 	"github.com/spf13/cobra"
 )
 
@@ -17,10 +17,11 @@ var length int
 var types []string
 var save string
 var copy bool
+var verbose bool
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
-	Use:   "pgg",
+	Use:   "pgg-cli",
 	Short: "Generate secure password",
 	Long:  `Generate password based on crypt/rand, you can export all password in a file or just one password`,
 	Run: func(cmd *cobra.Command, args []string) {
@@ -35,7 +36,12 @@ var rootCmd = &cobra.Command{
 		}
 
 		password, _ := crypt.GenPassword(length, types.String())
-		fmt.Printf("Password %v\n", password)
+
+		if verbose && !copy {
+			fmt.Printf("Password: %v\n", password)
+		} else if !verbose && !copy {
+			fmt.Print(password)
+		}
 
 		// Save Passsword
 		utils.Save(save, password)
@@ -43,17 +49,6 @@ var rootCmd = &cobra.Command{
 		// Copy to clipboard
 		utils.Copy(copy, password)
 	},
-}
-
-var versionCmd = &cobra.Command{
-	Use:   "version",
-	Short: "Print the version number of Hugo",
-	Long:  `All software has versions. This is Hugo's`,
-	Run: func(cmd *cobra.Command, args []string) {
-		println("Hugo Static Site Generator v0.9 -- HEAD")
-	},
-	Example: "hugo version",
-	Version: "1",
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
@@ -71,7 +66,6 @@ func init() {
 	rootCmd.Flags().StringSliceVarP(&types, "types", "t", []string{"numbers", "upper", "lower", "special"}, "Type of password, valid options: lower, upper, numbers, special")
 	rootCmd.Flags().StringVarP(&save, "save", "s", "", "Save password in your db")
 	rootCmd.Flags().BoolVarP(&copy, "copy", "c", false, "Copy password to clipboard")
-
-	rootCmd.AddCommand(versionCmd)
+	rootCmd.Flags().BoolVarP(&verbose, "verbose", "v", false, "Verbose output")
 
 }

@@ -7,6 +7,9 @@
   packages = [
     pkgs.go
     pkgs.air
+    pkgs.gcc
+    pkgs.sudo
+    pkgs.xorg.libX11.dev
   ];
   # Sets environment variables in the workspace
   env = {};

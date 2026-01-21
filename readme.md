@@ -26,15 +26,15 @@ This project is designed as a lightweight and secure alternative to GUI-based pa
 ### Using Go
 
 
-go install github.com/leonibeldev/pgg@latest
+go install github.com/leonibeldev/pgg-cli@latest
 
 
 ### Build from source
 
 ```bash
-git clone https://github.com/leonibeldev/pgg.git
-cd pgg
-go build -o pgg
+git clone https://github.com/leonibeldev/pgg-cli.git
+cd pgg-cli
+go build -o pgg-cli main.go
 ```
 
 ---
@@ -44,7 +44,7 @@ go build -o pgg
 Generate a password with a custom length and character types:
 
 ```bash
-pgg -l 10 -t lower,numbers,special -s facebook.com
+pgg-cli --length 10 --types lower,numbers,special --save facebook.com
 ```
 
 Example output:
@@ -65,6 +65,9 @@ Password 4sd56456sa3?w2
 | `--types`  | `-t`  | Character types to include        | `numbers,upper,lower,special` |
 | `--save`   | `-s`  | Save password with a service name | `""`                          |
 | `--copy`   | `-c`  | Copy password to clipboard        | `false`                       |
+| `--delete` | `-d`  | Delete password by ID             | `0`                           |
+| `--export` | `-e`  | Export passwords to a JSON file   | `false`                       |
+| `--list`   | `-g`  | List all saved passwords          | `false`                       |
 
 ---
 
@@ -80,7 +83,7 @@ Password 4sd56456sa3?w2
 Example:
 
 ```bash
-pgg -l 12 -t lower,numbers
+pgg-cli --length 12 --types lower,numbers
 ```
 
 ---
@@ -90,7 +93,7 @@ pgg -l 12 -t lower,numbers
 ### List Saved Passwords
 
 ```bash
-pgg -list
+pgg-cli --list
 ```
 
 Output example:
@@ -108,37 +111,37 @@ Output example:
 ### Delete a Password
 
 ```bash
-pgg -delete 5132
+pgg-cli --delete 5132
 ```
 
 Confirmation:
 
 ```text
-You want to delete the password with ID 5132? Y/n
+Are you sure you want to delete password with ID 5132? [y/N]: 
 ```
 
 ---
 
 ### Export Passwords
 
-Export all stored passwords to a JSON file:
+Export all stored passwords to a JSON file in the actual directory:
 
 ```bash
-pgg -export -filename keys
+pgg-cli --export
 ```
 
 Example output file:
 
 ```json
-{
-  "keys": [
-    {
-      "ID": 5132,
-      "Service": "facebook.com",
-      "Password": "fd538245d2z105104:'s"
-    }
-  ]
-}
+[
+  {
+    "ID": 5132,
+    "Service": "facebook.com",
+    "Password": "fd538245d2z105104:'s",
+    "Username": "user123",
+    "Created_at": "10/10/10"
+  }
+]
 ```
 
 ---
@@ -146,7 +149,7 @@ Example output file:
 ## Version
 
 ```bash
-pgg version
+pgg-cli --version
 ```
 
 ---
@@ -178,6 +181,4 @@ pgg version
 ---
 
 ## License
-
-Copyright © 2026
-LeonibelDev [leonibel.ramirez@gmail.com](mailto:leonibel.ramirez@gmail.com)
+MIT License © 2026 LeonibelDev

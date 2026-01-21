@@ -1,3 +1,5 @@
 /tmp
 /.idx
 ./LICENSE
+*.db
+*.json

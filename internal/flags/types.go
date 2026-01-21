@@ -2,6 +2,7 @@ package flags
 
 import (
 	"fmt"
+	"os"
 	"strings"
 )
 
@@ -25,6 +26,7 @@ func Types(types []string) (strings.Builder, error) {
 			TypesToUse.WriteString(special)
 		default:
 			fmt.Println("Type not found")
+			os.Exit(1)
 		}
 	}
 
